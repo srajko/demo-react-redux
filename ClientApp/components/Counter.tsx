@@ -5,8 +5,11 @@ import { ApplicationState }  from '../store';
 import * as CounterStore from '../store/Counter';
 import * as WeatherForecasts from '../store/WeatherForecasts';
 
+interface PassedCounterProps { index: number };
+
 type CounterProps =
-    CounterStore.CounterState
+    PassedCounterProps
+    & CounterStore.CounterState
     & typeof CounterStore.actionCreators;
 
 class Counter extends React.Component<CounterProps, {}> {
@@ -16,15 +19,15 @@ class Counter extends React.Component<CounterProps, {}> {
 
             <p>This is a simple example of a React component.</p>
 
-            <p>Current count: <strong>{ this.props.count }</strong></p>
+            <p>Current count: <strong>{ this.props.counts[this.props.index] }</strong></p>
 
-            <button onClick={ () => { this.props.increment() } }>Increment</button>
+            <button onClick={ () => { this.props.increment(this.props.index, 1) } }>Increment</button>
         </div>;
     }
 }
 
 // Wire up the React component to the Redux store
-export default connect(
+export default connect<CounterStore.CounterState, typeof CounterStore.actionCreators, PassedCounterProps>(
     (state: ApplicationState) => state.counter, // Selects which state properties are merged into the component's props
     CounterStore.actionCreators                 // Selects which action creators are merged into the component's props
 )(Counter);

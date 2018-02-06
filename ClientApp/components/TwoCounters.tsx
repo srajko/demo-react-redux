@@ -12,8 +12,8 @@ type CounterProps =
 export default class TwoCounters extends React.Component<CounterProps, {}> {
     public render() {
         return <div>
-            <Counter />
-            <Counter />
+            <Counter index={0} />
+            <Counter index={1} />
         </div>;
     }
 }
