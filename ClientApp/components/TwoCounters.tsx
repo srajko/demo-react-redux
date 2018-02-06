@@ -13,7 +13,7 @@ export default class TwoCounters extends React.Component<CounterProps, {}> {
     public render() {
         return <div>
             <Counter index={0} />
-            <Counter index={1} />
+            <Counter index={1} incrementByIndex={0} />
         </div>;
     }
 }

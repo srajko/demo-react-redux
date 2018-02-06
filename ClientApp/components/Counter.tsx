@@ -5,7 +5,10 @@ import { ApplicationState }  from '../store';
 import * as CounterStore from '../store/Counter';
 import * as WeatherForecasts from '../store/WeatherForecasts';
 
-interface PassedCounterProps { index: number };
+interface PassedCounterProps {
+    index: number,
+    incrementByIndex?: number
+};
 
 type CounterProps =
     PassedCounterProps
@@ -14,14 +17,15 @@ type CounterProps =
 
 class Counter extends React.Component<CounterProps, {}> {
     public render() {
+        const { index, incrementByIndex, counts, increment } = this.props;
         return <div>
             <h1>Counter</h1>
 
             <p>This is a simple example of a React component.</p>
 
-            <p>Current count: <strong>{ this.props.counts[this.props.index] }</strong></p>
+            <p>Current count: <strong>{ counts[index] }</strong></p>
 
-            <button onClick={ () => { this.props.increment(this.props.index, 1) } }>Increment</button>
+            <button onClick={ () => increment(index, incrementByIndex !== undefined ? counts[incrementByIndex] : 1) }>Increment</button>
         </div>;
     }
 }
